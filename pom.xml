@@ -28,8 +28,13 @@
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
+< feature/primeroscambiosjuli
 			<version>8.0.31</version>
 		</dependency>
+			<version>8.0.30</version>
+		</dependency>
+
+> develop
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
