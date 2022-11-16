@@ -12,7 +12,7 @@
 	<artifactId>my-pocket-balance</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>my-pocket-balance</name>
-	<description>Final Profect</description>
+	<description>Final Project</description>
 	<properties>
 		<java.version>11</java.version>
 	</properties>
@@ -28,18 +28,8 @@
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-< feature/metiendomano
 			<version>8.0.30</version>
 		</dependency>
-
-< feature/primeroscambiosjuli
-			<version>8.0.31</version>
-		</dependency>
-			<version>8.0.30</version>
-		</dependency>
-
-> develop
-> develop
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
