@@ -1,11 +1,9 @@
 package org.ada.mypocketbalance.entity;
 
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table (name = "Factura")
@@ -22,6 +20,11 @@ public class Factura {
 
     @Column (nullable = false)
     private LocalDate Fecha;
+
+    @OneToMany (mappedBy = "factura")
+    private List<DetalleFactura> detallesFactura;
+
+
 
 
     public Factura() {

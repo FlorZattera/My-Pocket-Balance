@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
-@EnableJpaRepositories("org.ada.mypocketbalance.repository")
+
 public class MyPocketBalanceApplication {
 
 	public static void main(String[] args) {
