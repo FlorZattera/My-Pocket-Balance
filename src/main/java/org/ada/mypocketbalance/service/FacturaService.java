@@ -1,5 +1,6 @@
 package org.ada.mypocketbalance.service;
 
+import org.ada.mypocketbalance.dto.FacturaDTO;
 import org.ada.mypocketbalance.repository.DetalleFacturaRepository;
 import org.springframework.stereotype.Service;
 
@@ -11,5 +12,8 @@ public class FacturaService {
 
     public FacturaService(DetalleFacturaRepository detalleFacturaRepository) {
         this.detalleFacturaRepository = detalleFacturaRepository;
+    }
+
+    public void create(FacturaDTO facturaDTO) {
     }
 }
