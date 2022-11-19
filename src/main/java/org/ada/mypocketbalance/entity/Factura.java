@@ -25,8 +25,6 @@ public class Factura {
     private List<DetalleFactura> detallesFactura;
 
 
-
-
     public Factura() {
     }
 
