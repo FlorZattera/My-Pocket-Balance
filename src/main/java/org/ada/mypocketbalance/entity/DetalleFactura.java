@@ -1,9 +1,6 @@
 package org.ada.mypocketbalance.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "DetalleFactura")
@@ -18,6 +15,30 @@ public class DetalleFactura {
 
     @Column (nullable = false)
     private int PrecioTotal;
+
+    @ManyToOne
+    @JoinColumn(name = "factura_id")
+    private Factura factura;
+
+    @ManyToOne
+    @JoinColumn(name = "producto_id")
+    private Producto producto;
+
+    public Producto getProducto() {
+        return producto;
+    }
+
+    public void setProducto(Producto producto) {
+        this.producto = producto;
+    }
+
+    public Factura getFactura() {
+        return factura;
+    }
+
+    public void setFactura(Factura factura) {
+        this.factura = factura;
+    }
 
     public DetalleFactura() {
     }
