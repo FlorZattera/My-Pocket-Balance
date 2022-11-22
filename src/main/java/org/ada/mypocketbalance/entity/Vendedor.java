@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "vendedor")
+@Table(name = "Vendedor")
 public class Vendedor {
 
     @Id
@@ -19,10 +19,10 @@ public class Vendedor {
     @Column(nullable = false)
     private String direccion;
 
-    @OneToMany (mappedBy = "vendedor")
-    private List <Factura> facturas;
+   @OneToMany (mappedBy = "vendedor")
+    private List<Factura> facturas;
 
-    public Vendedor (){
+    public Vendedor(){
 
     }
 

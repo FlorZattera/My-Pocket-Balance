@@ -16,7 +16,7 @@ public class DetalleFactura {
     @Column (nullable = false)
     private int PrecioTotal;
 
-    @ManyToOne
+    /*@ManyToOne
     @JoinColumn(name = "factura_id")
     private Factura factura;
 
@@ -41,7 +41,7 @@ public class DetalleFactura {
     }
 
     public DetalleFactura() {
-    }
+    }*/
 
     public DetalleFactura(int id, int cantidadPedida, int precioTotal) {
         this.id = id;
