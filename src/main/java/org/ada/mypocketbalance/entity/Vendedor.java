@@ -1,12 +1,10 @@
 package org.ada.mypocketbalance.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
-@Table(name = "vendedor")
+@Table(name = "Vendedor")
 public class Vendedor {
 
     @Id
@@ -21,7 +19,10 @@ public class Vendedor {
     @Column(nullable = false)
     private String direccion;
 
-    public Vendedor (){
+   @OneToMany (mappedBy = "vendedor")
+    private List<Factura> facturas;
+
+    public Vendedor(){
 
     }
 

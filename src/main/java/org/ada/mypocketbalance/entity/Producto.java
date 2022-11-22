@@ -22,8 +22,8 @@ public class Producto {
     @Column (nullable = false)
     private Integer cantidadDisponible;
 
-    @OneToMany (mappedBy = "producto")
-    private List<DetalleFactura> detallesFactura;
+    /*@OneToMany (mappedBy = "Producto")
+    private List<DetalleFactura> detallesFactura;*/
 
     public Producto(){
 

@@ -21,8 +21,16 @@ public class Factura {
     @Column (nullable = false)
     private LocalDate Fecha;
 
-    @OneToMany (mappedBy = "factura")
+   /* @OneToMany (mappedBy = "Factura")
     private List<DetalleFactura> detallesFactura;
+
+    /*@ManyToOne
+    @JoinColumn(name = "Client_id")
+    private Cliente client;*/
+
+    @ManyToOne
+    @JoinColumn(name = "vendedor_id")
+    private Vendedor vendedor;
 
 
     public Factura() {
