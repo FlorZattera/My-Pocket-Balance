@@ -9,12 +9,12 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>org.ada</groupId>
-	<artifactId>my-pocket-balance</artifactId>
+	<artifactId>my-first-spring-project</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>my-pocket-balance</name>
-	<description>Final Project</description>
+	<name>my-first-spring-project</name>
+	<description>Demo project for Spring Boot</description>
 	<properties>
-		<java.version>11</java.version>
+		<java.version>17</java.version>
 	</properties>
 	<dependencies>
 		<dependency>

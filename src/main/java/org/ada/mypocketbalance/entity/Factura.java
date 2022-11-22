@@ -24,6 +24,14 @@ public class Factura {
     @OneToMany (mappedBy = "factura")
     private List<DetalleFactura> detallesFactura;
 
+    @ManyToOne
+    @JoinColumn(name = "client_id")
+    private Client client;
+
+    @ManyToOne
+    @JoinColumn(name = "vendedor_id")
+    private Vendedor vendedor;
+
 
     public Factura() {
     }
