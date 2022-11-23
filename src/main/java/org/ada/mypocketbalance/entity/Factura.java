@@ -11,16 +11,16 @@ public class Factura {
 
     @Id
     @Column (nullable = false)
-    private Integer ID;
+    private Integer id;
+
+    @Column (name= "numero_factura",nullable = false)
+    private Integer numeroFactura;
+
+    @Column (name= "total_factura",nullable = false)
+    private Float totalFactura;
 
     @Column (nullable = false)
-    private Integer NumeroFactura;
-
-    @Column (nullable = false)
-    private Float TotalFactura;
-
-    @Column (nullable = false)
-    private LocalDate Fecha;
+    private LocalDate fecha;
 
     @ManyToOne
     @JoinColumn(name = "cliente_id")
@@ -33,28 +33,36 @@ public class Factura {
     public Factura() {
     }
 
-    public Factura(Integer id, int numeroFactura, float totalFactura, LocalDate fecha) {
-        this.ID = id;
-        NumeroFactura = numeroFactura;
-        TotalFactura = totalFactura;
-        Fecha = fecha;
+    public Factura(Integer id, Integer numeroFactura, Float totalFactura, LocalDate fecha, Cliente cliente, Vendedor vendedor) {
+        this.id = id;
+        this.numeroFactura = numeroFactura;
+        this.totalFactura = totalFactura;
+        this.fecha = fecha;
+        this.cliente = cliente;
+        this.vendedor = vendedor;
     }
 
     public Integer getId() {
-        return ID;
+        return id;
     }
 
-    public int getNumeroFactura() {
-        return NumeroFactura;
+    public Integer getNumeroFactura() {
+        return numeroFactura;
     }
 
-    public float getTotalFactura() {
-        return TotalFactura;
+    public Float getTotalFactura() {
+        return totalFactura;
     }
 
     public LocalDate getFecha() {
-        return Fecha;
+        return fecha;
     }
 
+    public Cliente getCliente() {
+        return cliente;
+    }
 
+    public Vendedor getVendedor() {
+        return vendedor;
+    }
 }

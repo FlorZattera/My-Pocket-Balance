@@ -9,16 +9,16 @@ public class Vendedor {
 
     @Id
     @Column(nullable = false)
-    private Integer ID;
+    private Integer id;
 
     @Column(nullable = false)
-    private String Nombre;
+    private String nombre;
 
     @Column(nullable = false)
-    private String Telefono;
+    private String telefono;
 
     @Column(nullable = false)
-    private String Direccion;
+    private String direccion;
 
    @OneToMany (mappedBy = "vendedor")
     private List<Factura> facturas;
@@ -26,26 +26,32 @@ public class Vendedor {
     public Vendedor(){
 
     }
-    public Vendedor(Integer ID, String nombre, String telefono, String direccion) {
-        this.ID = ID;
-        this.Nombre = nombre;
-        this.Telefono = telefono;
-        this.Direccion = direccion;
+
+    public Vendedor(Integer id, String nombre, String telefono, String direccion, List<Factura> facturas) {
+        this.id = id;
+        this.nombre = nombre;
+        this.telefono = telefono;
+        this.direccion = direccion;
+        this.facturas = facturas;
     }
 
     public Integer getId() {
-        return ID;
+        return id;
     }
 
     public String getNombre() {
-        return Nombre;
+        return nombre;
     }
 
     public String getTelefono() {
-        return Telefono;
+        return telefono;
     }
 
     public String getDireccion() {
-        return Direccion;
+        return direccion;
+    }
+
+    public List<Factura> getFacturas() {
+        return facturas;
     }
 }

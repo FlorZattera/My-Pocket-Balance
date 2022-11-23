@@ -4,18 +4,16 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "Detalle_Factura")
-
 public class DetalleFactura {
-
     @Id
     @Column(nullable = false)
-    private int ID;
+    private int id;
 
-    @Column(nullable = false)
-    private int CantidadPedida;
+    @Column(name= "cantidad_pedida",nullable = false)
+    private int cantidadPedida;
 
-    @Column (nullable = false)
-    private int PrecioTotal;
+    @Column (name= "precio_total",nullable = false)
+    private int precioTotal;
 
     @ManyToOne
     @JoinColumn(name = "factura_id")
@@ -28,21 +26,31 @@ public class DetalleFactura {
     public DetalleFactura() {
     }
 
-    public DetalleFactura(int id, int cantidadPedida, int precioTotal) {
-        this.ID = id;
-        CantidadPedida = cantidadPedida;
-        PrecioTotal = precioTotal;
+    public DetalleFactura(int id, int cantidadPedida, int precioTotal, Factura factura, Producto producto) {
+        this.id = id;
+        this.cantidadPedida = cantidadPedida;
+        this.precioTotal = precioTotal;
+        this.factura = factura;
+        this.producto = producto;
     }
 
     public int getId() {
-        return ID;
+        return id;
     }
 
     public int getCantidadPedida() {
-        return CantidadPedida;
+        return cantidadPedida;
     }
 
     public int getPrecioTotal() {
-        return PrecioTotal;
+        return precioTotal;
+    }
+
+    public Factura getFactura() {
+        return factura;
+    }
+
+    public Producto getProducto() {
+        return producto;
     }
 }

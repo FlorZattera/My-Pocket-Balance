@@ -8,51 +8,67 @@ import java.util.List;
 public class Cliente {
 
     @Id
-    @Column (nullable = false)
-    private Integer ID;
+    @Column(nullable = false)
+    private Integer id;
 
-    @Column (nullable = false)
-    private Integer Cuil;
+    @Column(nullable = false)
+    private Integer cuil;
 
-    @Column (nullable = false)
-    private String Nombre;
+    @Column(nullable = false)
+    private String nombre;
 
-    @Column (nullable = false)
-    private Integer Telefono;
+    @Column(nullable = false)
+    private Integer telefono;
 
-    @Column (nullable = false)
-    private String Direccion;
+    @Column(nullable = false)
+    private String direccion;
 
 
-    @OneToMany (mappedBy = "cliente")
+    @OneToMany(mappedBy = "cliente")
     private List<Factura> facturas;
+
     public Cliente() {
     }
+
+    public Cliente(Integer id, Integer cuil, String nombre, Integer telefono, String direccion, List<Factura> facturas) {
+        this.id = id;
+        this.cuil = cuil;
+        this.nombre = nombre;
+        this.telefono = telefono;
+        this.direccion = direccion;
+        this.facturas = facturas;
+    }
+
     public Cliente(Integer id, Integer cuil, String nombre, Integer telefono, String direccion) {
-        this.ID = id;
-        this.Cuil = cuil;
-        this.Nombre = nombre;
-        this.Telefono = telefono;
-        this.Direccion = direccion;
+        this.id = id;
+        this.cuil = cuil;
+        this.nombre = nombre;
+        this.telefono = telefono;
+        this.direccion = direccion;
     }
 
     public Integer getId() {
-        return ID;
+        return id;
     }
 
     public Integer getCuil() {
-        return Cuil;
+        return cuil;
     }
 
     public String getNombre() {
-        return Nombre;
+        return nombre;
     }
 
     public Integer getTelefono() {
-        return Telefono;
+        return telefono;
     }
 
     public String getDireccion() {
-        return Direccion;
+        return direccion;
+    }
+
+    public List<Factura> getFacturas() {
+        return facturas;
     }
 }
+

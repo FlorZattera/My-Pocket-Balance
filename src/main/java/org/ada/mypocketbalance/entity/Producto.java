@@ -9,30 +9,56 @@ public class Producto {
 
     @Id
     @Column (nullable = false)
-    private Integer ID;
+    private Integer id;
 
     @Column (nullable = false)
-    private String Descripcion;
+    private String descripcion;
 
-    @Column (nullable = false)
-    private Float PrecioCosto;
+    @Column (name= "precio_costo",nullable = false)
+    private Float precioCosto;
 
-    @Column (nullable = false)
-    private Float PrecioVenta;
+    @Column (name= "precio_venta", nullable = false)
+    private Float precioVenta;
 
-    @Column (nullable = false)
-    private Integer CantidadDisponible;
+    @Column (name= "cantidad_pedida",nullable = false)
+    private Integer cantidadDisponible;
 
     @OneToMany (mappedBy = "producto")
     private List<DetalleFactura> detallesFactura;
 
     public Producto(){
     }
-    public Producto(Integer ID, String descripcion, float precioCosto, float precioVenta, Integer cantidadDisponible) {
-        this.ID = ID;
-        this.Descripcion = descripcion;
-        this.PrecioCosto = precioCosto;
-        this.PrecioVenta = precioVenta;
-        this.CantidadDisponible = cantidadDisponible;
+
+    public Producto(Integer id, String descripcion, Float precioCosto, Float precioVenta, Integer cantidadDisponible, List<DetalleFactura> detallesFactura) {
+        this.id = id;
+        this.descripcion = descripcion;
+        this.precioCosto = precioCosto;
+        this.precioVenta = precioVenta;
+        this.cantidadDisponible = cantidadDisponible;
+        this.detallesFactura = detallesFactura;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public Float getPrecioCosto() {
+        return precioCosto;
+    }
+
+    public Float getPrecioVenta() {
+        return precioVenta;
+    }
+
+    public Integer getCantidadDisponible() {
+        return cantidadDisponible;
+    }
+
+    public List<DetalleFactura> getDetallesFactura() {
+        return detallesFactura;
     }
 }

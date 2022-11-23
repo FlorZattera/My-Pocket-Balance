@@ -1,6 +1,7 @@
 package org.ada.mypocketbalance.dto;
 
-public class ClientDTO {
+
+public class ClienteDTO {
 
     private Integer id;
     private Integer cuil;
@@ -8,12 +9,15 @@ public class ClientDTO {
     private Integer telefono;
     private String direccion;
 
-    public ClientDTO(Integer id, Integer cuil, String nombre, Integer telefono, String direccion) {
+    public ClienteDTO(Integer id, Integer cuil, String nombre, Integer telefono, String direccion) {
         this.id = id;
         this.cuil = cuil;
         this.nombre = nombre;
         this.telefono = telefono;
         this.direccion = direccion;
+    }
+
+    public ClienteDTO() {
     }
 
     public Integer getId() {
