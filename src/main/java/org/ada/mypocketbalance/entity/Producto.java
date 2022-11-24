@@ -20,22 +20,23 @@ public class Producto {
     @Column (name= "precio_venta", nullable = false)
     private Float precioVenta;
 
-    @Column (name= "cantidad_pedida",nullable = false)
+    @Column (name= "cantidad_disponible",nullable = false)
     private Integer cantidadDisponible;
 
-    @OneToMany (mappedBy = "producto")
-    private List<DetalleFactura> detallesFactura;
+    @ManyToOne
+    @JoinColumn (name= "detalle_factura_id")
+    private DetalleFactura detalleFactura;
 
     public Producto(){
     }
 
-    public Producto(Integer id, String descripcion, Float precioCosto, Float precioVenta, Integer cantidadDisponible, List<DetalleFactura> detallesFactura) {
+    public Producto(Integer id, String descripcion, Float precioCosto, Float precioVenta, Integer cantidadDisponible, DetalleFactura detalleFactura) {
         this.id = id;
         this.descripcion = descripcion;
         this.precioCosto = precioCosto;
         this.precioVenta = precioVenta;
         this.cantidadDisponible = cantidadDisponible;
-        this.detallesFactura = detallesFactura;
+        this.detalleFactura = detalleFactura;
     }
 
     public Integer getId() {
@@ -56,9 +57,5 @@ public class Producto {
 
     public Integer getCantidadDisponible() {
         return cantidadDisponible;
-    }
-
-    public List<DetalleFactura> getDetallesFactura() {
-        return detallesFactura;
     }
 }

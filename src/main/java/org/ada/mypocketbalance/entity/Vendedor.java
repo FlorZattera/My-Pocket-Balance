@@ -8,7 +8,7 @@ import java.util.List;
 public class Vendedor {
 
     @Id
-    @Column(nullable = false)
+    @GeneratedValue (strategy = GenerationType.IDENTITY )
     private Integer id;
 
     @Column(nullable = false)

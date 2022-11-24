@@ -10,7 +10,7 @@ import java.util.List;
 public class Factura {
 
     @Id
-    @Column (nullable = false)
+    @GeneratedValue (strategy = GenerationType.IDENTITY )
     private Integer id;
 
     @Column (name= "numero_factura",nullable = false)
@@ -21,6 +21,9 @@ public class Factura {
 
     @Column (nullable = false)
     private LocalDate fecha;
+
+    @OneToMany(mappedBy = "factura")
+    private List<DetalleFactura> detallesFactura;
 
     @ManyToOne
     @JoinColumn(name = "cliente_id")

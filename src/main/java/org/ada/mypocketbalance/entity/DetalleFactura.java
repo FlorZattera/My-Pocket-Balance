@@ -1,48 +1,65 @@
 package org.ada.mypocketbalance.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "Detalle_Factura")
 public class DetalleFactura {
     @Id
-    @Column(nullable = false)
-    private int id;
+    @GeneratedValue (strategy = GenerationType.IDENTITY )
+    private Integer id;
 
-    @Column(name= "cantidad_pedida",nullable = false)
-    private int cantidadPedida;
+    @Column(name = "cantidad_pedida", nullable = false)
+    private Integer cantidadPedida;
 
-    @Column (name= "precio_total",nullable = false)
-    private int precioTotal;
+    @Column(name = "precio_unitario")
+    private Integer precioUnitario;
+
+    @Column(name = "precio_total", nullable = false)
+    private Integer precioTotal;
 
     @ManyToOne
     @JoinColumn(name = "factura_id")
     private Factura factura;
 
-    @ManyToOne
-    @JoinColumn(name = "producto_id")
-    private Producto producto;
+    @OneToMany
+    private List<Producto> productos;
 
     public DetalleFactura() {
+
     }
 
-    public DetalleFactura(int id, int cantidadPedida, int precioTotal, Factura factura, Producto producto) {
+    public DetalleFactura(Integer id, Integer cantidadPedida, Integer precioUnitario, Integer precioTotal, Factura factura, List<Producto> productos) {
         this.id = id;
         this.cantidadPedida = cantidadPedida;
+        this.precioUnitario = precioUnitario;
         this.precioTotal = precioTotal;
         this.factura = factura;
-        this.producto = producto;
+        this.productos = productos;
     }
 
-    public int getId() {
+    public DetalleFactura(Integer id, Integer cantidadPedida, Integer precioUnitario, Integer precioTotal, Factura factura) {
+        this.id = id;
+        this.cantidadPedida = cantidadPedida;
+        this.precioUnitario = precioUnitario;
+        this.precioTotal = precioTotal;
+        this.factura = factura;
+    }
+
+    public Integer getId() {
         return id;
     }
 
-    public int getCantidadPedida() {
+    public Integer getCantidadPedida() {
         return cantidadPedida;
     }
 
-    public int getPrecioTotal() {
+    public Integer getPrecioUnitario() {
+        return precioUnitario;
+    }
+
+    public Integer getPrecioTotal() {
         return precioTotal;
     }
 
@@ -50,7 +67,12 @@ public class DetalleFactura {
         return factura;
     }
 
-    public Producto getProducto() {
-        return producto;
+    public List<Producto> getProductos() {
+        return productos;
     }
 }
+
+
+
+
+

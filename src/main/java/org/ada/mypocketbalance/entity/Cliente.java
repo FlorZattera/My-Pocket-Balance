@@ -4,11 +4,11 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name= "Cliente")
+@Table(name= "cliente")
 public class Cliente {
 
     @Id
-    @Column(nullable = false)
+    @GeneratedValue (strategy = GenerationType.IDENTITY )
     private Integer id;
 
     @Column(nullable = false)

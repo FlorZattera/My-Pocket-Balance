@@ -2,8 +2,12 @@ package org.ada.mypocketbalance.service;
 
 import org.ada.mypocketbalance.dto.ClienteDTO;
 import org.ada.mypocketbalance.entity.Cliente;
+import org.ada.mypocketbalance.exceptions.ExistingResourceException;
+import org.ada.mypocketbalance.exceptions.ResourceNotFoundException;
 import org.ada.mypocketbalance.repository.ClienteRepository;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -12,6 +16,7 @@ import java.util.stream.Collectors;
 public class ClienteService {
 
         private final ClienteRepository clienteRepository;
+        private Cliente clienteDTO;
 
         public ClienteService(ClienteRepository clienteRepository) {
 
@@ -42,7 +47,33 @@ public class ClienteService {
 
                 return cliente;
 
+        
+        }
+
+    public ClienteDTO create(ClienteDTO clienteDTO) {
+            Cliente cliente = mapToEntity(clienteDTO);
+            checkForExistingCliente(cliente.getId());
+            cliente = clienteRepository.save(cliente);
+
+            return clienteDTO;
+    }
+
+        private void checkForExistingCliente (Integer clienteId) {
+                if (clienteRepository.existsById(clienteId)) {
+                        throw new ExistingResourceException();
+                }
+        }
+
+
+        public void delete(Integer clienteId) {
+                try {
+                        clienteRepository.deleteById(clienteId);
+                } catch (EmptyResultDataAccessException e){
+                        throw new ResourceNotFoundException();
+                }
         }
 }
+
+
 
 
