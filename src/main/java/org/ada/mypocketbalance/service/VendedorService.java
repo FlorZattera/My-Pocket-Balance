@@ -8,6 +8,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -28,6 +29,12 @@ public class VendedorService {
                 .map(vendedor -> mapToDTO(vendedor))
                 .collect(Collectors.toList());
     }
+    public void create(VendedorDTO vendedorDTO, Integer vendedorId) {
+        Optional<Vendedor> vendedor = vendedorRepository.findById(vendedorId);
+        if (vendedor.isEmpty()) {
+            throw new ResourceNotFoundException("el vendedor no existe.");
+        }
+    }
 
     private VendedorDTO mapToDTO(Vendedor vendedor) {
 
@@ -39,7 +46,7 @@ public class VendedorService {
 
     private Vendedor mapToEntity(VendedorDTO vendedorDTO) {
         Vendedor vendedor = new Vendedor(vendedorDTO.getId(),vendedorDTO.getNombre(),
-                vendedorDTO.getTelefono(), vendedorDTO.getDireccion();
+                vendedorDTO.getTelefono(), vendedorDTO.getDireccion());
 
         return vendedor;
 

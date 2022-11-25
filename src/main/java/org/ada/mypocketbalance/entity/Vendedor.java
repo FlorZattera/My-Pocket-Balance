@@ -35,6 +35,13 @@ public class Vendedor {
         this.facturas = facturas;
     }
 
+    public Vendedor(Integer id, String nombre, String telefono, String direccion) {
+        this.id = id;
+        this.nombre = nombre;
+        this.telefono = telefono;
+        this.direccion = direccion;
+    }
+
     public Integer getId() {
         return id;
     }

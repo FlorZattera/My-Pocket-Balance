@@ -26,9 +26,6 @@ public class ProductoService {
         Producto producto = mapToEntity(productoDTO);
         checkForExistingProducto(producto.getId());
         producto = productoRepository.save(producto);
-        if (!CollectionUtils.isEmpty(productoDTO.getProductosDTOS())) {
-            productoService.create(ProductoDTO productoDTO.getProductosDTOS(), producto);
-        }
 
         return productoDTO;
     }
