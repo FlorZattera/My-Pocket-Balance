@@ -1,7 +1,6 @@
 package org.ada.mypocketbalance.controller;
 
 import org.ada.mypocketbalance.dto.ClienteDTO;
-import org.ada.mypocketbalance.entity.Cliente;
 import org.ada.mypocketbalance.service.ClienteService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

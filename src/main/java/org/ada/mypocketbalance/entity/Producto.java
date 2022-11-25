@@ -1,7 +1,6 @@
 package org.ada.mypocketbalance.entity;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "Producto")
@@ -27,7 +26,7 @@ public class Producto {
     @JoinColumn (name= "detalle_factura_id")
     private DetalleFactura detalleFactura;
 
-    public Producto(){
+    public Producto(Integer id, String descripcion, Float precioCosto, Float precioVenta, Integer cantidadDisponible){
     }
 
     public Producto(Integer id, String descripcion, Float precioCosto, Float precioVenta, Integer cantidadDisponible, DetalleFactura detalleFactura) {
