@@ -1,17 +1,22 @@
 package org.ada.mypocketbalance.service;
 
 
+
 import org.ada.mypocketbalance.dto.ClienteDTO;
 import org.ada.mypocketbalance.dto.ProductoDTO;
 import org.ada.mypocketbalance.dto.VendedorDTO;
 import org.ada.mypocketbalance.entity.Cliente;
 import org.ada.mypocketbalance.entity.Producto;
 import org.ada.mypocketbalance.entity.Vendedor;
+
+import org.ada.mypocketbalance.dto.ProductoDTO;
+
 import org.ada.mypocketbalance.exceptions.ExistingResourceException;
 import org.ada.mypocketbalance.exceptions.ResourceNotFoundException;
 import org.ada.mypocketbalance.repository.ProductoRepository;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,6 +26,7 @@ import java.util.stream.Collectors;
 public class ProductoService {
 
     private final ProductoRepository productoRepository;
+    private ProductoService productoService;
 
     public ProductoService(ProductoRepository productoRepository) {
 
@@ -55,6 +61,7 @@ public class ProductoService {
 
         return productoDTO;
     }
+
 
     private Producto mapToEntity(ProductoDTO productoDTO) {
         Producto producto = new Producto(productoDTO.getId(), productoDTO.getDescripcion(), productoDTO.getPrecioCosto(),

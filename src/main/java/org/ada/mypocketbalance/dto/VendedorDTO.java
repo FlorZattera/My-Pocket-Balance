@@ -14,6 +14,14 @@ public class VendedorDTO {
         this.direccion = direccion;
     }
 
+    public VendedorDTO() {
+
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     public Integer getId() {
 
         return id;

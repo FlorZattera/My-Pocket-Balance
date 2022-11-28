@@ -1,5 +1,10 @@
 package org.ada.mypocketbalance.dto;
 
+import org.ada.mypocketbalance.entity.Producto;
+
+import java.util.Collection;
+import java.util.List;
+
 public class ProductoDTO {
 
     private Integer id;
@@ -38,5 +43,11 @@ public class ProductoDTO {
 
     public Integer getCantidadDisponible() {
         return cantidadDisponible;
+    }
+
+}
+
+    public List <ProductoDTO> getProductosDTOS() {
+        return getProductosDTOS();
     }
 }

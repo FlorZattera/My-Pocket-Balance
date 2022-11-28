@@ -2,12 +2,14 @@ package org.ada.mypocketbalance.controller;
 
 
 import org.ada.mypocketbalance.dto.ProductoDTO;
+
 import org.ada.mypocketbalance.dto.VendedorDTO;
 import org.ada.mypocketbalance.service.FacturaService;
 import org.ada.mypocketbalance.service.ProductoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 @RestController
 @RequestMapping(path="/productos")
 
@@ -27,6 +29,27 @@ public class ProductoController {
         ProductoDTO createdProductoDTO = productoService.create(productoDTO);
 
         return new ResponseEntity(productoDTO.getId(), HttpStatus.CREATED);
+
+    @GetMapping
+    public ResponseEntity retrieve() {
+        return new ResponseEntity(productoService.retrieveAll(), HttpStatus.OK);
+    }
+
+
+    @GetMapping("/{productoId}")
+    public ResponseEntity retrieveById(@PathVariable Integer productoId) {
+        try {
+            ProductoDTO productoDTO = productoService.retrieveById(productoId);
+
+            return new ResponseEntity(productoDTO, HttpStatus.OK);
+
+        } catch (Exception e){
+
+            return new ResponseEntity(e.getMessage(),HttpStatus.NOT_FOUND);
+        }
+
+
+    }
 
     }
 
