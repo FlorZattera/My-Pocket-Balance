@@ -12,12 +12,11 @@ public class Producto {
 
     @Column (nullable = false)
     private String descripcion;
-
     @Column (name= "precio_costo",nullable = false)
-    private Float precioCosto;
+    private String precioCosto;
 
     @Column (name= "precio_venta", nullable = false)
-    private Float precioVenta;
+    private String precioVenta;
 
     @Column (name= "cantidad_disponible",nullable = false)
     private Integer cantidadDisponible;
@@ -26,10 +25,19 @@ public class Producto {
     @JoinColumn (name= "detalle_factura_id")
     private DetalleFactura detalleFactura;
 
-    public Producto(Integer id, String descripcion, Float precioCosto, Float precioVenta, Integer cantidadDisponible){
+
+    public Producto() {
     }
 
-    public Producto(Integer id, String descripcion, Float precioCosto, Float precioVenta, Integer cantidadDisponible, DetalleFactura detalleFactura) {
+    public Producto(Integer id, String descripcion, String precioCosto, String precioVenta, Integer cantidadDisponible) {
+        this.id = id;
+        this.descripcion = descripcion;
+        this.precioCosto = precioCosto;
+        this.precioVenta = precioVenta;
+        this.cantidadDisponible = cantidadDisponible;
+
+
+    public Producto(Integer id, String descripcion, String precioCosto, String precioVenta, Integer cantidadDisponible, DetalleFactura detalleFactura) {
         this.id = id;
         this.descripcion = descripcion;
         this.precioCosto = precioCosto;
@@ -46,11 +54,11 @@ public class Producto {
         return descripcion;
     }
 
-    public Float getPrecioCosto() {
+    public String getPrecioCosto() {
         return precioCosto;
     }
 
-    public Float getPrecioVenta() {
+    public String getPrecioVenta() {
         return precioVenta;
     }
 

@@ -6,6 +6,8 @@ import java.util.List;
 @Entity
 @Table(name = "Detalle_Factura")
 public class DetalleFactura {
+
+    /*@ probando git */
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY )
     private Integer id;

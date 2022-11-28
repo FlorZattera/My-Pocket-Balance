@@ -1,9 +1,20 @@
 package org.ada.mypocketbalance.service;
+
+
+
+import org.ada.mypocketbalance.dto.ClienteDTO;
 import org.ada.mypocketbalance.dto.ProductoDTO;
+import org.ada.mypocketbalance.dto.VendedorDTO;
+import org.ada.mypocketbalance.entity.Cliente;
 import org.ada.mypocketbalance.entity.Producto;
+import org.ada.mypocketbalance.entity.Vendedor;
+
+import org.ada.mypocketbalance.dto.ProductoDTO;
+
 import org.ada.mypocketbalance.exceptions.ExistingResourceException;
 import org.ada.mypocketbalance.exceptions.ResourceNotFoundException;
 import org.ada.mypocketbalance.repository.ProductoRepository;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -17,22 +28,10 @@ public class ProductoService {
     private final ProductoRepository productoRepository;
     private ProductoService productoService;
 
-
     public ProductoService(ProductoRepository productoRepository) {
+
         this.productoRepository = productoRepository;
     }
-
-    public ProductoDTO create(ProductoDTO productoDTO) {
-        Producto producto = mapToEntity(productoDTO);
-        checkForExistingProducto(producto.getId());
-        producto = productoRepository.save(producto);
-
-        return productoDTO;
-    }
-
-    private void checkForExistingProducto(Integer id) {
-    }
-
     public List<ProductoDTO> retrieveAll() {
 
         List<Producto> productos = productoRepository.findAll();
@@ -41,31 +40,42 @@ public class ProductoService {
                 .map(producto -> mapToDTO(producto))
                 .collect(Collectors.toList());
     }
-    public ProductoDTO retrieveById(Integer id) {
-        Optional<Producto> producto = productoRepository.findById(id);
-        if (producto.isEmpty()) {
-            throw new ResourceNotFoundException();
+
+    public ProductoDTO create(ProductoDTO productoDTO) {
+        Producto producto = mapToEntity(productoDTO);
+        checkForExistingProducto(producto.getId());
+        producto = productoRepository.save(producto);
+        return productoDTO;
+    }
+
+    private void checkForExistingProducto(Integer productoId) {
+        if (productoRepository.existsById(productoId)) {
+            throw new ExistingResourceException();
         }
-        return mapToDTO(producto.get());
     }
 
     private ProductoDTO mapToDTO(Producto producto) {
 
         ProductoDTO productoDTO = new ProductoDTO(producto.getId(), producto.getDescripcion(), producto.getPrecioCosto(),
-        producto.getPrecioVenta(), producto.getCantidadDisponible());
+                producto.getPrecioVenta(), producto.getCantidadDisponible());
 
         return productoDTO;
     }
-    private void checkForExistingPerson(Integer personId) {
-        if (productoRepository.existsById(personId)) {
-            throw new ExistingResourceException();
-        }
-    }
+
+
     private Producto mapToEntity(ProductoDTO productoDTO) {
         Producto producto = new Producto(productoDTO.getId(), productoDTO.getDescripcion(), productoDTO.getPrecioCosto(),
                 productoDTO.getPrecioVenta(), productoDTO.getCantidadDisponible());
 
         return producto;
     }
+    public void delete(Integer productoId) {
+        try {
+            productoRepository.deleteById(productoId);
+        } catch (EmptyResultDataAccessException e){
+            throw new ResourceNotFoundException();
+        }
+    }
 }
+
 

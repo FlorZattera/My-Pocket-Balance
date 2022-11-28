@@ -23,6 +23,7 @@ public class VendedorDTO {
     }
 
     public Integer getId() {
+
         return id;
     }
 

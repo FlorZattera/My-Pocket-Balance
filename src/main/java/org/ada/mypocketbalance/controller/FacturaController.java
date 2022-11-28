@@ -21,10 +21,10 @@ public class FacturaController {
         this.facturaService = facturaService;
     }
 
-    @PostMapping
+    /*@PostMapping
     public ResponseEntity.BodyBuilder create(@RequestBody FacturaDTO facturaDTO) {
         facturaService.create(facturaDTO);
-        return ResponseEntity.accepted();
+        return ResponseEntity.accepted();*/
     }
 
-}
+
