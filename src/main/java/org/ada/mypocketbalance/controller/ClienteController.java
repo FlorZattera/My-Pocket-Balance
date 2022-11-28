@@ -16,6 +16,7 @@ public class ClienteController {
 
 
     public ClienteController(ClienteService clienteService) {
+
         this.clienteService = clienteService;
     }
 
@@ -36,7 +37,12 @@ public class ClienteController {
 
         return new ResponseEntity(HttpStatus.OK);
     }
-}
 
+    @GetMapping
+    public ResponseEntity retrieve() {
+        return new ResponseEntity(clienteService.retrieveAll(), HttpStatus.OK);
+    }
+
+}
 
 

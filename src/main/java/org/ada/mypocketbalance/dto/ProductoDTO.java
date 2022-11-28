@@ -2,14 +2,18 @@ package org.ada.mypocketbalance.dto;
 
 public class ProductoDTO {
 
-    private Integer Id;
+    private Integer id;
     private String descripcion;
-    private Float precioCosto;
-    private Float precioVenta;
+    private String precioCosto;
+    private String precioVenta;
     private Integer cantidadDisponible;
 
-    public ProductoDTO(Integer id, String descripcion, Float precioCosto, Float precioVenta, Integer cantidadDisponible) {
-        Id = id;
+    public ProductoDTO(){
+
+    }
+
+    public ProductoDTO(Integer id, String descripcion, String precioCosto, String precioVenta, Integer cantidadDisponible) {
+        this.id = id;
         this.descripcion = descripcion;
         this.precioCosto = precioCosto;
         this.precioVenta = precioVenta;
@@ -17,18 +21,18 @@ public class ProductoDTO {
     }
 
     public Integer getId() {
-        return Id;
+        return id;
     }
 
     public String getDescripcion() {
         return descripcion;
     }
 
-    public Float getPrecioCosto() {
+    public String getPrecioCosto() {
         return precioCosto;
     }
 
-    public Float getPrecioVenta() {
+    public String getPrecioVenta() {
         return precioVenta;
     }
 

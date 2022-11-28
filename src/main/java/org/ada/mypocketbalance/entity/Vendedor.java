@@ -27,6 +27,13 @@ public class Vendedor {
 
     }
 
+    public Vendedor(Integer id, String nombre, String telefono, String direccion) {
+        this.id = id;
+        this.nombre = nombre;
+        this.telefono = telefono;
+        this.direccion = direccion;
+    }
+
     public Vendedor(Integer id, String nombre, String telefono, String direccion, List<Factura> facturas) {
         this.id = id;
         this.nombre = nombre;
@@ -40,18 +47,22 @@ public class Vendedor {
     }
 
     public String getNombre() {
+
         return nombre;
     }
 
     public String getTelefono() {
+
         return telefono;
     }
 
     public String getDireccion() {
+
         return direccion;
     }
 
     public List<Factura> getFacturas() {
+
         return facturas;
     }
 }

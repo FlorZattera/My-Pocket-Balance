@@ -25,7 +25,7 @@ public class ClienteService {
 
         public List<ClienteDTO> retrieveAll() {
 
-                List<Cliente> clientes = clienteRepository.findAll();
+                List<Cliente>clientes = clienteRepository.findAll();
 
                 return clientes.stream()
                         .map(cliente -> mapToDTO(cliente))
@@ -35,8 +35,8 @@ public class ClienteService {
 
         private ClienteDTO mapToDTO(Cliente cliente) {
 
-                ClienteDTO clienteDTO = new ClienteDTO(cliente.getCuil(), cliente.getTelefono(), cliente.getNombre(),
-                        cliente.getId(), cliente.getDireccion());
+                ClienteDTO clienteDTO = new ClienteDTO(cliente.getId(), cliente.getCuil(), cliente.getNombre(),
+                        cliente.getTelefono(), cliente.getDireccion());
 
                 return clienteDTO;
         }
