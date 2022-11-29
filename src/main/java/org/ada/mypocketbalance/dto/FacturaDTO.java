@@ -3,6 +3,7 @@ package org.ada.mypocketbalance.dto;
 import com.fasterxml.jackson.annotation.JsonAlias;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class FacturaDTO {
 
@@ -11,28 +12,43 @@ public class FacturaDTO {
     private int numeroFactura;
     @JsonAlias ("total_factura")
     private Double totalFactura;
-    private LocalDate fecha; /*Cambiar a string y hacer logica*/
+    @JsonAlias ("fecha")
+    private String fecha; /*Cambiar a string y hacer logica*/
+    @JsonAlias ("cliente_id")
     private Integer idCliente;
+    @JsonAlias ("vendedor_id")
     private Integer idVendedor;
+
+    private List<DetalleFacturaDTO> detalleFacturaDTOS;
 
     public FacturaDTO() {
     }
 
 
 
-    public FacturaDTO(Integer id, int numeroFactura, Double totalFactura, LocalDate fecha) {
+    public FacturaDTO(Integer id, int numeroFactura, Double totalFactura, String fecha) {
         this.id = id;
         this.numeroFactura = numeroFactura;
         this.totalFactura = totalFactura;
         this.fecha = fecha;
     }
 
-    public FacturaDTO(int numeroFactura, Double totalFactura, LocalDate fecha,Integer idCliente, Integer idVendedor) {
+    public FacturaDTO(Integer id, int numeroFactura, Double totalFactura, String fecha, Integer idCliente, Integer idVendedor) {
+        this.id = id;
         this.numeroFactura = numeroFactura;
         this.totalFactura = totalFactura;
         this.fecha = fecha;
-        this.idCliente=idCliente;
-        this.idVendedor=idVendedor;
+        this.idCliente = idCliente;
+        this.idVendedor = idVendedor;
+    }
+
+    public FacturaDTO(int numeroFactura, Double totalFactura, String fecha, Integer idCliente, Integer idVendedor, List<DetalleFacturaDTO> detalleFacturaDTOS) {
+        this.numeroFactura = numeroFactura;
+        this.totalFactura = totalFactura;
+        this.fecha = fecha;
+        this.idCliente = idCliente;
+        this.idVendedor = idVendedor;
+        this.detalleFacturaDTOS = detalleFacturaDTOS;
     }
 
     public Integer getIdCliente() {
@@ -59,8 +75,12 @@ public class FacturaDTO {
         return totalFactura;
     }
 
-    public LocalDate getFecha() {
+    public String getFecha() {
         return fecha;
+    }
+
+    public List<DetalleFacturaDTO> getDetalleFacturaDTOS() {
+        return detalleFacturaDTOS;
     }
 }
 

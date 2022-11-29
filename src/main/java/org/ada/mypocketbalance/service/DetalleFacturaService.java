@@ -25,6 +25,20 @@ public class DetalleFacturaService {
         this.productoRepository = productoRepository;
         this.facturaRepository = facturaRepository;
     }
+    public List<DetalleFacturaDTO> mapToDTOS(List<DetalleFactura> detallesFacturas) {
+
+        return detallesFacturas.stream()
+                .map(detalleFactura -> mapToDTO(detalleFactura))
+                .collect(Collectors.toList());
+    }
+
+    private DetalleFacturaDTO mapToDTO(DetalleFactura detalleFactura) {
+        DetalleFacturaDTO detalleFacturaDTO = new DetalleFacturaDTO(detalleFactura.getCantidadPedida(),detalleFactura.getPrecioTotal()
+        ,detalleFactura.getProducto().getId(),detalleFactura.getProducto().getId());
+        detalleFacturaDTO.setId(detalleFactura.getId());
+
+        return detalleFacturaDTO;
+    }
 
 
     public void create(DetalleFacturaDTO detalleFacturaDTO) {
