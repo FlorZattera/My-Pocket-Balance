@@ -70,4 +70,3 @@ public class Cliente {
         return facturas;
     }
 }
-

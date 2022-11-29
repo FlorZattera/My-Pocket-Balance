@@ -1,6 +1,7 @@
 package org.ada.mypocketbalance.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "Producto")
@@ -12,38 +13,37 @@ public class Producto {
 
     @Column (nullable = false)
     private String descripcion;
+
     @Column (name= "precio_costo",nullable = false)
-    private String precioCosto;
+    private Double precioCosto;
 
     @Column (name= "precio_venta", nullable = false)
-    private String precioVenta;
+    private Double precioVenta;
 
     @Column (name= "cantidad_disponible",nullable = false)
     private Integer cantidadDisponible;
 
-    @ManyToOne
-    @JoinColumn (name= "detalle_factura_id")
-    private DetalleFactura detalleFactura;
-
+    @OneToMany (mappedBy = "producto")
+    private List<DetalleFactura> detallesFactura;
 
     public Producto() {
     }
 
-    public Producto(Integer id, String descripcion, String precioCosto, String precioVenta, Integer cantidadDisponible) {
+    public Producto(Integer id, String descripcion, Double precioCosto, Double precioVenta, Integer cantidadDisponible) {
         this.id = id;
         this.descripcion = descripcion;
         this.precioCosto = precioCosto;
         this.precioVenta = precioVenta;
         this.cantidadDisponible = cantidadDisponible;
+    }
 
-
-    public Producto(Integer id, String descripcion, String precioCosto, String precioVenta, Integer cantidadDisponible, DetalleFactura detalleFactura) {
+    public Producto(Integer id, String descripcion, Double precioCosto, Double precioVenta, Integer cantidadDisponible, List<DetalleFactura> detallesFactura) {
         this.id = id;
         this.descripcion = descripcion;
         this.precioCosto = precioCosto;
         this.precioVenta = precioVenta;
         this.cantidadDisponible = cantidadDisponible;
-        this.detalleFactura = detalleFactura;
+        this.detallesFactura = detallesFactura;
     }
 
     public Integer getId() {
@@ -54,15 +54,19 @@ public class Producto {
         return descripcion;
     }
 
-    public String getPrecioCosto() {
+    public Double getPrecioCosto() {
         return precioCosto;
     }
 
-    public String getPrecioVenta() {
+    public Double getPrecioVenta() {
         return precioVenta;
     }
 
     public Integer getCantidadDisponible() {
         return cantidadDisponible;
+    }
+
+    public List<DetalleFactura> getDetallesFactura() {
+        return detallesFactura;
     }
 }

@@ -1,7 +1,6 @@
 package org.ada.mypocketbalance.entity;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "Detalle_Factura")
@@ -9,44 +8,47 @@ public class DetalleFactura {
 
     /*@ probando git */
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(name = "cantidad_pedida", nullable = false)
     private Integer cantidadPedida;
 
-    @Column(name = "precio_unitario")
-    private Integer precioUnitario;
 
     @Column(name = "precio_total", nullable = false)
-    private Integer precioTotal;
+    private Double precioTotal;
 
     @ManyToOne
     @JoinColumn(name = "factura_id")
     private Factura factura;
 
-    @OneToMany
-    private List<Producto> productos;
+    @ManyToOne
+    @JoinColumn(name = "producto_id")
+    private Producto producto;
 
     public DetalleFactura() {
+    }
+
+    public DetalleFactura(Integer id, Integer cantidadPedida, Double precioTotal, Factura factura, Producto producto) {
+        this.id = id;
+        this.cantidadPedida = cantidadPedida;
+        this.precioTotal = precioTotal;
+        this.factura = factura;
+        this.producto = producto;
+    }
+
+    public DetalleFactura(Integer cantidadPedida, Double precioTotal, Factura factura, Producto producto) {
+        this.cantidadPedida = cantidadPedida;
+        this.precioTotal = precioTotal;
+        this.factura = factura;
+        this.producto = producto;
 
     }
 
-    public DetalleFactura(Integer id, Integer cantidadPedida, Integer precioUnitario, Integer precioTotal, Factura factura, List<Producto> productos) {
-        this.id = id;
+    public DetalleFactura(Integer cantidadPedida, Double precioTotal, Producto producto) {
         this.cantidadPedida = cantidadPedida;
-        this.precioUnitario = precioUnitario;
         this.precioTotal = precioTotal;
-        this.factura = factura;
-        this.productos = productos;
-    }
-
-    public DetalleFactura(Integer id, Integer cantidadPedida, Integer precioUnitario, Integer precioTotal, Factura factura) {
-        this.id = id;
-        this.cantidadPedida = cantidadPedida;
-        this.precioUnitario = precioUnitario;
-        this.precioTotal = precioTotal;
-        this.factura = factura;
+        this.producto = producto;
     }
 
     public Integer getId() {
@@ -57,11 +59,7 @@ public class DetalleFactura {
         return cantidadPedida;
     }
 
-    public Integer getPrecioUnitario() {
-        return precioUnitario;
-    }
-
-    public Integer getPrecioTotal() {
+    public Double getPrecioTotal() {
         return precioTotal;
     }
 
@@ -69,12 +67,14 @@ public class DetalleFactura {
         return factura;
     }
 
-    public List<Producto> getProductos() {
-        return productos;
+    public Producto getProducto() {
+        return producto;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 }
-
-
 
 
 

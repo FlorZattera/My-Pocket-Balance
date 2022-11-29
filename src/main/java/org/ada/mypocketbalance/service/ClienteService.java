@@ -47,16 +47,16 @@ public class ClienteService {
 
                 return cliente;
 
-        
+
         }
 
-    public ClienteDTO create(ClienteDTO clienteDTO) {
-            Cliente cliente = mapToEntity(clienteDTO);
-            checkForExistingCliente(cliente.getId());
-            cliente = clienteRepository.save(cliente);
+        public ClienteDTO create(ClienteDTO clienteDTO) {
+                Cliente cliente = mapToEntity(clienteDTO);
+                checkForExistingCliente(cliente.getId());
+                cliente = clienteRepository.save(cliente);
 
-            return clienteDTO;
-    }
+                return clienteDTO;
+        }
 
         private void checkForExistingCliente (Integer clienteId) {
                 if (clienteRepository.existsById(clienteId)) {
@@ -73,6 +73,8 @@ public class ClienteService {
                 }
         }
 }
+
+
 
 
 
