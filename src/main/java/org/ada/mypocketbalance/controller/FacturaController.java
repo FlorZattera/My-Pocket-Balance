@@ -21,17 +21,22 @@ public class FacturaController {
         this.facturaService = facturaService;
     }
 
-    /*@PostMapping
-    public ResponseEntity create(@RequestBody FacturaDTO facturaDTO){
-        facturaService.create(facturaDTO,vendedorId,clienteId);
-        return new ResponseEntity (facturaDTO.getId(), HttpStatus.CREATED);*/
+    @PostMapping
+    public ResponseEntity create(
+            @RequestBody FacturaDTO facturaDTO) {
+        facturaService.create(facturaDTO);
+        return new ResponseEntity(facturaDTO.getId(), HttpStatus.CREATED);
+    }
+
 
     @GetMapping("/{facturaId}")
-    public ResponseEntity retrieveById(@PathVariable Integer facturaId){
+    public ResponseEntity retrieveById(@PathVariable Integer facturaId) {
         FacturaDTO facturaDTO = facturaService.retrieveById(facturaId);
 
         return new ResponseEntity(facturaDTO, HttpStatus.OK);
     }
-    }
+}
+
+
 
 
