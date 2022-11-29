@@ -1,6 +1,6 @@
 package org.ada.mypocketbalance.dto;
 
-import org.ada.mypocketbalance.entity.Producto;
+import com.fasterxml.jackson.annotation.JsonAlias;
 
 import java.util.Collection;
 import java.util.List;
@@ -9,15 +9,29 @@ public class ProductoDTO {
 
     private Integer id;
     private String descripcion;
-    private String precioCosto;
-    private String precioVenta;
+    @JsonAlias ("precio_costo")
+    private Double precioCosto;
+    @JsonAlias("precio_venta")
+    private Double precioVenta;
+    @JsonAlias("cantidad_disponible")
     private Integer cantidadDisponible;
+
+    private List<DetalleFacturaDTO> detalleFacturaDTOS;
 
     public ProductoDTO(){
 
     }
 
-    public ProductoDTO(Integer id, String descripcion, String precioCosto, String precioVenta, Integer cantidadDisponible) {
+    public ProductoDTO(Integer id, String descripcion, Double precioCosto, Double precioVenta, Integer cantidadDisponible, List<DetalleFacturaDTO> detalleFacturaDTOS) {
+        this.id = id;
+        this.descripcion = descripcion;
+        this.precioCosto = precioCosto;
+        this.precioVenta = precioVenta;
+        this.cantidadDisponible = cantidadDisponible;
+        this.detalleFacturaDTOS = detalleFacturaDTOS;
+    }
+
+    public ProductoDTO(Integer id, String descripcion, Double precioCosto, Double precioVenta, Integer cantidadDisponible) {
         this.id = id;
         this.descripcion = descripcion;
         this.precioCosto = precioCosto;
@@ -33,11 +47,11 @@ public class ProductoDTO {
         return descripcion;
     }
 
-    public String getPrecioCosto() {
+    public Double getPrecioCosto() {
         return precioCosto;
     }
 
-    public String getPrecioVenta() {
+    public Double getPrecioVenta() {
         return precioVenta;
     }
 
@@ -45,9 +59,7 @@ public class ProductoDTO {
         return cantidadDisponible;
     }
 
-}
-
-    public List <ProductoDTO> getProductosDTOS() {
-        return getProductosDTOS();
+    public List<DetalleFacturaDTO> getDetalleFacturaDTOS() {
+        return detalleFacturaDTOS;
     }
 }

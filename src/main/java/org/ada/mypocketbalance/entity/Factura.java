@@ -1,6 +1,8 @@
 package org.ada.mypocketbalance.entity;
 
 
+import net.bytebuddy.asm.Advice;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
@@ -17,7 +19,7 @@ public class Factura {
     private Integer numeroFactura;
 
     @Column (name= "total_factura",nullable = false)
-    private Float totalFactura;
+    private Double totalFactura;
 
     @Column (nullable = false)
     private LocalDate fecha;
@@ -33,10 +35,10 @@ public class Factura {
     @JoinColumn(name = "vendedor_id")
     private Vendedor vendedor;
 
-    public Factura() {
+    public Factura(int numeroFactura, Double totalFactura, LocalDate fecha, Cliente cliente, Vendedor vendedor) {
     }
 
-    public Factura(Integer id, Integer numeroFactura, Float totalFactura, LocalDate fecha, Cliente cliente, Vendedor vendedor) {
+    public Factura(Integer id, Integer numeroFactura, Double totalFactura, LocalDate fecha, Cliente cliente, Vendedor vendedor) {
         this.id = id;
         this.numeroFactura = numeroFactura;
         this.totalFactura = totalFactura;
@@ -44,6 +46,15 @@ public class Factura {
         this.cliente = cliente;
         this.vendedor = vendedor;
     }
+
+    public Factura(Integer numeroFactura, Double totalFactura, LocalDate fecha, Cliente cliente, Vendedor vendedor) {
+        this.numeroFactura = numeroFactura;
+        this.totalFactura = totalFactura;
+        this.fecha = fecha;
+        this.cliente = cliente;
+        this.vendedor = vendedor;
+    }
+
 
     public Integer getId() {
         return id;
@@ -53,7 +64,7 @@ public class Factura {
         return numeroFactura;
     }
 
-    public Float getTotalFactura() {
+    public Double getTotalFactura() {
         return totalFactura;
     }
 

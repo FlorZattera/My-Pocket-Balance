@@ -3,14 +3,14 @@ package org.ada.mypocketbalance.controller;
 
 import org.ada.mypocketbalance.dto.FacturaDTO;
 import org.ada.mypocketbalance.service.FacturaService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping (path="/facturas")
+/*"vendedores/{vendedorId}/clientes/{clienteId}/*/
+
 
 public class FacturaController {
 
@@ -22,9 +22,16 @@ public class FacturaController {
     }
 
     /*@PostMapping
-    public ResponseEntity.BodyBuilder create(@RequestBody FacturaDTO facturaDTO) {
-        facturaService.create(facturaDTO);
-        return ResponseEntity.accepted();*/
+    public ResponseEntity create(@RequestBody FacturaDTO facturaDTO){
+        facturaService.create(facturaDTO,vendedorId,clienteId);
+        return new ResponseEntity (facturaDTO.getId(), HttpStatus.CREATED);*/
+
+    @GetMapping("/{facturaId}")
+    public ResponseEntity retrieveById(@PathVariable Integer facturaId){
+        FacturaDTO facturaDTO = facturaService.retrieveById(facturaId);
+
+        return new ResponseEntity(facturaDTO, HttpStatus.OK);
+    }
     }
 
 
