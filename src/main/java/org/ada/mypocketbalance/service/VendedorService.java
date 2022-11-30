@@ -23,28 +23,22 @@ public class VendedorService {
 
         this.vendedorRepository = vendedorRepository;
     }
+
     public List<VendedorDTO> retrieveAll() {
 
         List<Vendedor> vendedores = vendedorRepository.findAll();
 
         return vendedores.stream()
-                .map(vendedor-> mapToDTO(vendedor))
+                .map(vendedor -> mapToDTO(vendedor))
                 .collect(Collectors.toList());
     }
 
-
-    private VendedorDTO mapToDTO(Vendedor vendedor) {
-
-        VendedorDTO vendedorDTO = new VendedorDTO(vendedor.getId(),vendedor.getNombre(),vendedor.getTelefono(), vendedor.getDireccion());
-
-        return vendedorDTO;
-    }
-
-    private Vendedor mapToEntity(VendedorDTO vendedorDTO) {
-        Vendedor vendedor = new Vendedor(vendedorDTO.getId(),vendedorDTO.getNombre(),vendedorDTO.getTelefono(),vendedorDTO.getDireccion());
-
-        return vendedor;
-
+    public void delete(Integer vendedorId) {
+        try {
+            vendedorRepository.deleteById(vendedorId);
+        } catch (EmptyResultDataAccessException e) {
+            throw new ResourceNotFoundException();
+        }
     }
 
     public VendedorDTO create(VendedorDTO vendedorDTO) {
@@ -55,20 +49,26 @@ public class VendedorService {
         return vendedorDTO;
     }
 
-    private void checkForExistingVendedor (Integer vendedorId) {
+    private void checkForExistingVendedor(Integer vendedorId) {
         if (vendedorRepository.existsById(vendedorId)) {
             throw new ExistingResourceException();
         }
     }
 
+    private VendedorDTO mapToDTO(Vendedor vendedor) {
 
-    public void delete(Integer vendedorId) {
-        try {
-            vendedorRepository.deleteById(vendedorId);
-        } catch (EmptyResultDataAccessException e){
-            throw new ResourceNotFoundException();
-        }
+        VendedorDTO vendedorDTO = new VendedorDTO(vendedor.getId(), vendedor.getNombre(), vendedor.getTelefono(), vendedor.getDireccion());
+
+        return vendedorDTO;
     }
+
+    private Vendedor mapToEntity(VendedorDTO vendedorDTO) {
+        Vendedor vendedor = new Vendedor(vendedorDTO.getId(), vendedorDTO.getNombre(), vendedorDTO.getTelefono(), vendedorDTO.getDireccion());
+
+        return vendedor;
+
+    }
+
 }
 
 

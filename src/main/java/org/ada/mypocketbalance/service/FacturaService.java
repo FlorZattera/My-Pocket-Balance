@@ -34,33 +34,7 @@ public class FacturaService {
         this.detalleFacturaService = detalleFacturaService;
     }
 
-    public void create(FacturaDTO facturaDTO) {
-        Optional <Cliente> cliente= clienteRepository.findById(facturaDTO.getIdCliente());
-        Optional<Vendedor> vendedor= vendedorRepository.findById(facturaDTO.getIdVendedor());
-        if (cliente.isEmpty()){
-            throw new ResourceNotFoundException("el cliente no esta resgistrado");
-        } if (vendedor.isEmpty()){
-            throw new ResourceNotFoundException("la compra no puede realizarse");
-        }
-        Factura factura= mapToEntity (facturaDTO,cliente.get(),vendedor.get());
-        factura= facturaRepository.save(factura);
-        facturaDTO.setId(factura.getId());
-
-    }
-
-    private Factura mapToEntity(FacturaDTO facturaDTO,Cliente cliente, Vendedor vendedor) {
-        Factura factura= new Factura(facturaDTO.getId(), facturaDTO.getNumeroFactura(),facturaDTO.getTotalFactura(),
-                LocalDate.parse(facturaDTO.getFecha(),DATE_TIME_FORMATTER),cliente,vendedor);
-        return factura;
-    }
-
-    private FacturaDTO mapToDTO(Factura factura) {
-        FacturaDTO facturaDTO= new FacturaDTO(factura.getId(), factura.getNumeroFactura(),
-                factura.getTotalFactura(),factura.getFecha().toString(),factura.getCliente().getId(),factura.getVendedor().getId());
-        return facturaDTO;
-        }
-
-    public FacturaDTO retrieveById( Integer facturaId) {
+    public FacturaDTO retrieveById(Integer facturaId) {
         Optional<Factura> factura = facturaRepository.findById(facturaId);
         if (factura.isEmpty()) {
             throw new ResourceNotFoundException();
@@ -69,7 +43,50 @@ public class FacturaService {
         return mapToDTO(factura.get());
     }
 
+    public List<FacturaDTO> retrieveAll() {
+        List<Factura> facturas = facturaRepository.findAll();
 
+        return facturas.stream()
+                .map(factura -> mapToDTO(factura))
+                .collect(Collectors.toList());
+    }
+
+    public void create(FacturaDTO facturaDTO) {
+        Optional<Cliente> cliente = clienteRepository.findById(facturaDTO.getIdCliente());
+        Optional<Vendedor> vendedor = vendedorRepository.findById(facturaDTO.getIdVendedor());
+        if (cliente.isEmpty()) {
+            throw new ResourceNotFoundException("el cliente no esta resgistrado");
+        }
+        if (vendedor.isEmpty()) {
+            throw new ResourceNotFoundException("la compra no puede realizarse");
+        }
+        Factura factura = mapToEntity(facturaDTO, cliente.get(), vendedor.get());
+        factura = facturaRepository.save(factura);
+        facturaDTO.setId(factura.getId());
+
+    }
+    /*public FacturaDTO create(FacturaDTO facturaDTO) {
+        Factura factura = mapToEntity(facturaDTO);
+        factura = facturaRepository.save(factura);
+        if (!CollectionUtils.isEmpty(facturaDTO.getDetalleFacturaDTOS())) {
+            detalleFacturaService.create(facturaDTO.getDetalleFacturaDTOS();
+        }
+
+        return facturaDTO;
+    }*/
+
+
+    private Factura mapToEntity(FacturaDTO facturaDTO, Cliente cliente, Vendedor vendedor) {
+        Factura factura = new Factura(facturaDTO.getId(), facturaDTO.getNumeroFactura(), facturaDTO.getTotalFactura(),
+                LocalDate.parse(facturaDTO.getFecha(), DATE_TIME_FORMATTER), cliente, vendedor);
+        return factura;
+    }
+
+    private FacturaDTO mapToDTO(Factura factura) {
+        FacturaDTO facturaDTO = new FacturaDTO(factura.getId(), factura.getNumeroFactura(),
+                factura.getTotalFactura(), factura.getFecha().toString(), factura.getCliente().getId(), factura.getVendedor().getId());
+        return facturaDTO;
+    }
 
 }
 

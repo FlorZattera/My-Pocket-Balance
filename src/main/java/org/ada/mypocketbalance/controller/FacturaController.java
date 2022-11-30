@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping (path="/facturas")
+@RequestMapping(path = "/facturas")
 /*"vendedores/{vendedorId}/clientes/{clienteId}/*/
 
 
@@ -33,6 +33,11 @@ public class FacturaController {
         FacturaDTO facturaDTO = facturaService.retrieveById(facturaId);
 
         return new ResponseEntity(facturaDTO, HttpStatus.OK);
+    }
+
+    @GetMapping
+    public ResponseEntity retrieve() {
+        return new ResponseEntity(facturaService.retrieveAll(), HttpStatus.OK);
     }
 }
 

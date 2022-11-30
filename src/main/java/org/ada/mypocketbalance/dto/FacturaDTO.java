@@ -8,27 +8,20 @@ import java.util.List;
 public class FacturaDTO {
 
     private Integer id;
-    @JsonAlias ("numero_factura")
+    @JsonAlias("numero_factura")
     private int numeroFactura;
-    @JsonAlias ("total_factura")
-    private Double totalFactura;
-    @JsonAlias ("fecha")
-    private String fecha; /*Cambiar a string y hacer logica*/
-    @JsonAlias ("cliente_id")
+    @JsonAlias("total_factura")
+    private Double totalFactura;/*campo calculado, no se puede almacenar en base de datos porq se va pisando FORMA NORMAL*/
+    @JsonAlias("fecha")
+    private String fecha;
+    @JsonAlias("cliente_id")
     private Integer idCliente;
-    @JsonAlias ("vendedor_id")
+    @JsonAlias("vendedor_id")
     private Integer idVendedor;
 
     private List<DetalleFacturaDTO> detalleFacturaDTOS;
 
     public FacturaDTO() {
-    }
-
-    public FacturaDTO(Integer id, int numeroFactura, Double totalFactura, String fecha) {
-        this.id = id;
-        this.numeroFactura = numeroFactura;
-        this.totalFactura = totalFactura;
-        this.fecha = fecha;
     }
 
     public FacturaDTO(Integer id, int numeroFactura, Double totalFactura, String fecha, Integer idCliente, Integer idVendedor) {
@@ -57,10 +50,6 @@ public class FacturaDTO {
         return idVendedor;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
     public Integer getId() {
         return id;
     }
@@ -80,5 +69,11 @@ public class FacturaDTO {
     public List<DetalleFacturaDTO> getDetalleFacturaDTOS() {
         return detalleFacturaDTOS;
     }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+
 }
 

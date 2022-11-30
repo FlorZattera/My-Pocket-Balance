@@ -7,6 +7,10 @@ public class VendedorDTO {
     private String telefono;
     private String direccion;
 
+    public VendedorDTO() {
+
+    }
+
     public VendedorDTO(Integer id, String nombre, String telefono, String direccion) {
         this.id = id;
         this.nombre = nombre;
@@ -14,28 +18,27 @@ public class VendedorDTO {
         this.direccion = direccion;
     }
 
-    public VendedorDTO() {
-
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
     public Integer getId() {
-
         return id;
     }
 
     public String getNombre() {
+
         return nombre;
     }
 
     public String getTelefono() {
+
         return telefono;
     }
 
     public String getDireccion() {
+
         return direccion;
+    }
+
+    public void setId(Integer id) {
+
+        this.id = id;
     }
 }

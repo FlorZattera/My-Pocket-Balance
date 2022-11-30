@@ -9,16 +9,16 @@ public class ProductoDTO {
 
     private Integer id;
     private String descripcion;
-    @JsonAlias ("precio_costo")
+    @JsonAlias("precio_costo")
     private Double precioCosto;
     @JsonAlias("precio_venta")
     private Double precioVenta;
     @JsonAlias("cantidad_disponible")
-    private Integer cantidadDisponible;
+    private Integer cantidadDisponible; /*campo calculado, no se puede almacenar en base de datos porq se va pisando FORMA NORMAL*/
 
     private List<DetalleFacturaDTO> detalleFacturaDTOS;
 
-    public ProductoDTO(){
+    public ProductoDTO() {
 
     }
 
