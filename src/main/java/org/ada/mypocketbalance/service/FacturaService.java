@@ -26,38 +26,32 @@ public class FacturaService {
     private final ClienteRepository clienteRepository;
     private final DetalleFacturaService detalleFacturaService;
 
-    public FacturaService(FacturaRepository facturaRepository, VendedorRepository vendedorRepository, ClienteRepository clienteRepository, DetalleFacturaService detalleFacturaService) {
+    public FacturaService(FacturaRepository facturaRepository, VendedorRepository vendedorRepository,
+                          ClienteRepository clienteRepository, DetalleFacturaService detalleFacturaService) {
         this.facturaRepository = facturaRepository;
         this.vendedorRepository = vendedorRepository;
         this.clienteRepository = clienteRepository;
         this.detalleFacturaService = detalleFacturaService;
     }
 
-    public FacturaDTO create (FacturaDTO facturaDTO) {
-        Factura factura = mapToEntity(facturaDTO);
-        /*checkForExistingFactura(factura.getId());*/
-        factura = facturaRepository.save(factura);
-
-        return facturaDTO;
-
+    public void create(FacturaDTO facturaDTO) {
+        Optional <Cliente> cliente= clienteRepository.findById(facturaDTO.getIdCliente());
+        Optional<Vendedor> vendedor= vendedorRepository.findById(facturaDTO.getIdVendedor());
+        if (cliente.isEmpty()){
+            throw new ResourceNotFoundException("el cliente no esta resgistrado");
+        } if (vendedor.isEmpty()){
+            throw new ResourceNotFoundException("la compra no puede realizarse");
+        }
+        Factura factura= mapToEntity (facturaDTO,cliente.get(),vendedor.get());
+        factura= facturaRepository.save(factura);
+        facturaDTO.setId(factura.getId());
 
     }
-    private Factura mapToEntity(FacturaDTO facturaDTO) {
+
+    private Factura mapToEntity(FacturaDTO facturaDTO,Cliente cliente, Vendedor vendedor) {
         Factura factura= new Factura(facturaDTO.getId(), facturaDTO.getNumeroFactura(),facturaDTO.getTotalFactura(),
-        LocalDate.parse(facturaDTO.getFecha(),DATE_TIME_FORMATTER));
+                LocalDate.parse(facturaDTO.getFecha(),DATE_TIME_FORMATTER),cliente,vendedor);
         return factura;
-    }
-
-    /*private void checkForExistingFactura(Integer facturaId) {
-        if (facturaRepository.existsById(facturaId)){
-            throw new ExistingResourceException();
-        }*/
-
-    public List<FacturaDTO> mapToDTOS(List<Factura> facturas) {
-
-        return facturas.stream()
-                .map(factura -> mapToDTO(factura))
-                .collect(Collectors.toList());
     }
 
     private FacturaDTO mapToDTO(Factura factura) {
@@ -74,7 +68,10 @@ public class FacturaService {
 
         return mapToDTO(factura.get());
     }
-    }
+
+
+
+}
 
 
 

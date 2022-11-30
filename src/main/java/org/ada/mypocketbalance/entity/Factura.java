@@ -64,6 +64,8 @@ public class Factura {
         this.fecha = fecha;
     }
 
+
+
     public Integer getId() {
         return id;
     }

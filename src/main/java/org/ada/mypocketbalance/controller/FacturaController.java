@@ -22,8 +22,7 @@ public class FacturaController {
     }
 
     @PostMapping
-    public ResponseEntity create(
-            @RequestBody FacturaDTO facturaDTO) {
+    public ResponseEntity create(@RequestBody FacturaDTO facturaDTO) {
         facturaService.create(facturaDTO);
         return new ResponseEntity(facturaDTO.getId(), HttpStatus.CREATED);
     }

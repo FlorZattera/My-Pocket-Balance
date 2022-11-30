@@ -24,8 +24,6 @@ public class FacturaDTO {
     public FacturaDTO() {
     }
 
-
-
     public FacturaDTO(Integer id, int numeroFactura, Double totalFactura, String fecha) {
         this.id = id;
         this.numeroFactura = numeroFactura;
