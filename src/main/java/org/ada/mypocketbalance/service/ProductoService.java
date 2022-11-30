@@ -46,7 +46,6 @@ public class ProductoService {
         return productoDTO;
     }
 
-
     public ProductoDTO create(ProductoDTO productoDTO) {
         Producto producto = mapToEntity(productoDTO);
         checkForExistingProducto(producto.getId());
@@ -56,8 +55,6 @@ public class ProductoService {
         }
         return productoDTO;
     }
-
-
             public void delete (Integer productoId){
                 try {
                     productoRepository.deleteById(productoId);
