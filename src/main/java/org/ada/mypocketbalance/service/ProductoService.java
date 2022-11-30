@@ -29,7 +29,6 @@ public class ProductoService {
         this.detalleFacturaService = detalleFacturaService;
     }
 
-
     public List<ProductoDTO> retrieveAll() {
 
         List<Producto> productos = productoRepository.findAll();
@@ -39,30 +38,23 @@ public class ProductoService {
                 .collect(Collectors.toList());
     }
 
-    private ProductoDTO mapToDTO (Producto producto){
-        ProductoDTO productoDTO = new ProductoDTO(producto.getId(), producto.getDescripcion(), producto.getPrecioCosto(),
-                producto.getPrecioVenta(), producto.getCantidadDisponible());
-
-        return productoDTO;
-    }
-
     public ProductoDTO create(ProductoDTO productoDTO) {
         Producto producto = mapToEntity(productoDTO);
         checkForExistingProducto(producto.getId());
         producto = productoRepository.save(producto);
         if (!CollectionUtils.isEmpty(productoDTO.getDetalleFacturaDTOS())) {
-            detalleFacturaService.create(productoDTO.getDetalleFacturaDTOS(),producto);
+            detalleFacturaService.create(productoDTO.getDetalleFacturaDTOS(), producto);
         }
         return productoDTO;
     }
-            public void delete (Integer productoId){
-                try {
-                    productoRepository.deleteById(productoId);
-                } catch (EmptyResultDataAccessException e) {
-                    throw new ResourceNotFoundException();
-                }
-            }
 
+    public void delete(Integer productoId) {
+        try {
+            productoRepository.deleteById(productoId);
+        } catch (EmptyResultDataAccessException e) {
+            throw new ResourceNotFoundException();
+        }
+    }
 
     private void checkForExistingProducto(Integer productoId) {
         if (productoRepository.existsById(productoId)) {
@@ -71,12 +63,19 @@ public class ProductoService {
 
     }
 
-    private Producto mapToEntity(ProductoDTO productoDTO){
-        Producto producto= new Producto(productoDTO.getId(),productoDTO.getDescripcion(),productoDTO.getPrecioCosto(),
-                productoDTO.getPrecioVenta(),productoDTO.getCantidadDisponible());
+    private Producto mapToEntity(ProductoDTO productoDTO) {
+        Producto producto = new Producto(productoDTO.getId(), productoDTO.getDescripcion(), productoDTO.getPrecioCosto(),
+                productoDTO.getPrecioVenta(), productoDTO.getCantidadDisponible());
         return producto;
     }
+
+    private ProductoDTO mapToDTO(Producto producto) {
+        ProductoDTO productoDTO = new ProductoDTO(producto.getId(), producto.getDescripcion(), producto.getPrecioCosto(),
+                producto.getPrecioVenta(), producto.getCantidadDisponible());
+
+        return productoDTO;
     }
+}
 
 
 

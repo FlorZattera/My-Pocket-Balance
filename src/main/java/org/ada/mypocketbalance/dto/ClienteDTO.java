@@ -9,15 +9,14 @@ public class ClienteDTO {
     private Integer telefono;
     private String direccion;
 
+    public ClienteDTO() {
+    }
     public ClienteDTO(Integer id, Integer cuil, String nombre, Integer telefono, String direccion) {
         this.id = id;
         this.cuil = cuil;
         this.nombre = nombre;
         this.telefono = telefono;
         this.direccion = direccion;
-    }
-
-    public ClienteDTO() {
     }
 
     public Integer getId() {

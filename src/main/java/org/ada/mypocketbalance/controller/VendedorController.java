@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(path="/vendedores")
+@RequestMapping(path = "/vendedores")
 public class VendedorController {
 
     private final VendedorService vendedorService;
@@ -19,6 +19,7 @@ public class VendedorController {
 
         this.vendedorService = vendedorService;
     }
+
     @PostMapping
     public ResponseEntity create
             (@RequestBody VendedorDTO vendedorDTO) {
