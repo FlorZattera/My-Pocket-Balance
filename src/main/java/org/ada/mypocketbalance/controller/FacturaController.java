@@ -37,6 +37,7 @@ public class FacturaController {
 
     @GetMapping
     public ResponseEntity retrieve() {
+
         return new ResponseEntity(facturaService.retrieveAll(), HttpStatus.OK);
     }
 }

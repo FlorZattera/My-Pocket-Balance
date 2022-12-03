@@ -1,5 +1,4 @@
 package org.ada.mypocketbalance.controller;
-
 import org.ada.mypocketbalance.dto.DetalleFacturaDTO;
 import org.ada.mypocketbalance.dto.ProductoDTO;
 import org.ada.mypocketbalance.service.DetalleFacturaService;
@@ -8,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(path = "/detallesFactura")
+@RequestMapping(path="/detallesFactura")
 
 public class DetalleFacturaController {
     private final DetalleFacturaService detalleFacturaService;
@@ -40,6 +39,7 @@ public class DetalleFacturaController {
 
     @GetMapping
     public ResponseEntity retrieve() {
+
         return new ResponseEntity(detalleFacturaService.retrieveAll(), HttpStatus.OK);
     }
 }

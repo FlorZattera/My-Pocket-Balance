@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.DoubleStream;
 
 @Service
 public class DetalleFacturaService {
@@ -19,13 +18,15 @@ public class DetalleFacturaService {
     private final DetalleFacturaRepository detalleFacturaRepository;
     private final ProductoRepository productoRepository;
     private final FacturaRepository facturaRepository;
+    private final DetalleFacturaMapper detalleFacturaMapper;
 
-
-    public DetalleFacturaService(DetalleFacturaRepository detalleFacturaRepository, ProductoRepository productoRepository, FacturaRepository facturaRepository) {
+    public DetalleFacturaService(DetalleFacturaRepository detalleFacturaRepository, ProductoRepository productoRepository, FacturaRepository facturaRepository, DetalleFacturaMapper detalleFacturaMapper) {
         this.detalleFacturaRepository = detalleFacturaRepository;
         this.productoRepository = productoRepository;
         this.facturaRepository = facturaRepository;
+        this.detalleFacturaMapper = detalleFacturaMapper;
     }
+
 
     public void create(List<DetalleFacturaDTO> detalleFacturaDTOS, Producto producto) {
         List<DetalleFactura> detalleFacturas = detalleFacturaDTOS.stream()
@@ -37,6 +38,13 @@ public class DetalleFacturaService {
     public void create(DetalleFacturaDTO detalleFacturaDTO) {
         Optional<Factura> factura = facturaRepository.findById(detalleFacturaDTO.getIdFactura());
         Optional<Producto> producto = productoRepository.findById(detalleFacturaDTO.getIdProducto());
+
+
+        if(producto.get().getCantidadDisponible()<=0){
+            throw new ResourceNotFoundException("no tenemos stock disponible");
+        }if (detalleFacturaDTO.getCantidadPedida() > producto.get().getCantidadDisponible()) {
+            throw new ResourceNotFoundException("la cantidad pedida supera nuestro stock disponible, intenta comprar : " + producto.get().getCantidadDisponible()+ " .");
+        }
         if (producto.isEmpty()) {
             throw new ResourceNotFoundException("el producto no se encuentra");
         }
@@ -44,8 +52,10 @@ public class DetalleFacturaService {
             throw new ResourceNotFoundException("La factura no existe");
         }
         DetalleFactura detalleFactura = mapToEntity(detalleFacturaDTO, factura.get(), producto.get());
-        detalleFactura = detalleFacturaRepository.save(detalleFactura);
+        detalleFacturaRepository.save(detalleFactura);
         detalleFacturaDTO.setId(detalleFactura.getId());
+        producto.get().setCantidadDisponible(producto.get().getCantidadDisponible() - detalleFacturaDTO.getCantidadPedida());
+        productoRepository.save(producto.get());
     }
 
     public DetalleFacturaDTO retrieveById(Integer detalleFacturaId) {
@@ -53,7 +63,7 @@ public class DetalleFacturaService {
         if (detalleFactura.isEmpty()) {
             throw new ResourceNotFoundException();
         }
-        return mapToDTO(detalleFactura.get());
+        return detalleFacturaMapper.mapToDTO(detalleFactura.get());
     }
 
 
@@ -61,7 +71,7 @@ public class DetalleFacturaService {
         List<DetalleFactura> detallesFactura = detalleFacturaRepository.findAll();
 
         return detallesFactura.stream()
-                .map(detalleFactura -> mapToDTO(detalleFactura))
+                .map(detalleFactura -> detalleFacturaMapper.mapToDTO(detalleFactura))
                 .collect(Collectors.toList());
     }
 
@@ -71,14 +81,6 @@ public class DetalleFacturaService {
         return detalleFactura;
     }
 
-
-    private DetalleFacturaDTO mapToDTO(DetalleFactura detalleFactura) {
-        DetalleFacturaDTO detalleFacturaDTO = new DetalleFacturaDTO(detalleFactura.getCantidadPedida(), detalleFactura.getPrecioTotal()
-                , detalleFactura.getProducto().getId(), detalleFactura.getProducto().getId());
-        detalleFacturaDTO.setId(detalleFactura.getId());
-
-        return detalleFacturaDTO;
-    }
 
     private DetalleFactura mapToEntity(DetalleFacturaDTO detalleFacturaDTO, Factura factura, Producto producto) {
         DetalleFactura detalleFactura = new DetalleFactura(detalleFacturaDTO.getCantidadPedida(), detalleFacturaDTO.getPrecioTotal(), factura, producto);

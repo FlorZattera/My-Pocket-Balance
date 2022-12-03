@@ -66,6 +66,10 @@ public class Producto {
         return cantidadDisponible;
     }
 
+    public void setCantidadDisponible(Integer cantidadDisponible) {
+        this.cantidadDisponible = cantidadDisponible;
+    }
+
     public List<DetalleFactura> getDetallesFactura() {
         return detallesFactura;
     }

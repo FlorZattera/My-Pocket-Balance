@@ -1,6 +1,7 @@
 package org.ada.mypocketbalance.dto;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -18,7 +19,7 @@ public class FacturaDTO {
     private Integer idCliente;
     @JsonAlias("vendedor_id")
     private Integer idVendedor;
-
+   @JsonProperty("detalle_facturasDTOS")
     private List<DetalleFacturaDTO> detalleFacturaDTOS;
 
     public FacturaDTO() {
@@ -33,7 +34,8 @@ public class FacturaDTO {
         this.idVendedor = idVendedor;
     }
 
-    public FacturaDTO(int numeroFactura, Double totalFactura, String fecha, Integer idCliente, Integer idVendedor, List<DetalleFacturaDTO> detalleFacturaDTOS) {
+    public FacturaDTO(Integer id,int numeroFactura, Double totalFactura, String fecha, Integer idCliente, Integer idVendedor, List<DetalleFacturaDTO> detalleFacturaDTOS) {
+        this.id= id;
         this.numeroFactura = numeroFactura;
         this.totalFactura = totalFactura;
         this.fecha = fecha;

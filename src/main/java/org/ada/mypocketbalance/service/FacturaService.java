@@ -25,17 +25,19 @@ public class FacturaService {
     private final VendedorRepository vendedorRepository;
     private final ClienteRepository clienteRepository;
     private final DetalleFacturaService detalleFacturaService;
+    private final DetalleFacturaMapper detalleFacturaMapper;
 
-    public FacturaService(FacturaRepository facturaRepository, VendedorRepository vendedorRepository,
-                          ClienteRepository clienteRepository, DetalleFacturaService detalleFacturaService) {
+    public FacturaService(FacturaRepository facturaRepository, VendedorRepository vendedorRepository, ClienteRepository clienteRepository, DetalleFacturaService detalleFacturaService, DetalleFacturaMapper detalleFacturaMapper) {
         this.facturaRepository = facturaRepository;
         this.vendedorRepository = vendedorRepository;
         this.clienteRepository = clienteRepository;
         this.detalleFacturaService = detalleFacturaService;
+        this.detalleFacturaMapper = detalleFacturaMapper;
     }
 
     public FacturaDTO retrieveById(Integer facturaId) {
         Optional<Factura> factura = facturaRepository.findById(facturaId);
+        /*Optional List<DetalleFacturaDTO> detallesFactura = facturaRepository.findById(facturaId);*/
         if (factura.isEmpty()) {
             throw new ResourceNotFoundException();
         }
@@ -65,6 +67,7 @@ public class FacturaService {
         facturaDTO.setId(factura.getId());
 
     }
+
     /*public FacturaDTO create(FacturaDTO facturaDTO) {
         Factura factura = mapToEntity(facturaDTO);
         factura = facturaRepository.save(factura);
@@ -74,17 +77,20 @@ public class FacturaService {
 
         return facturaDTO;
     }*/
-
-
-    private Factura mapToEntity(FacturaDTO facturaDTO, Cliente cliente, Vendedor vendedor) {
-        Factura factura = new Factura(facturaDTO.getId(), facturaDTO.getNumeroFactura(), facturaDTO.getTotalFactura(),
-                LocalDate.parse(facturaDTO.getFecha(), DATE_TIME_FORMATTER), cliente, vendedor);
+ private Factura mapToEntity(FacturaDTO facturaDTO, Cliente cliente, Vendedor vendedor) {
+     List<DetalleFactura> detalleFacturas = facturaDTO.getDetalleFacturaDTOS().stream().map(detalleFacturaDTO -> detalleFacturaMapper.mapToEntity(detalleFacturaDTO, null))
+             .collect(Collectors.toList());
+     Factura factura = new Factura(facturaDTO.getNumeroFactura(), facturaDTO.getTotalFactura(),
+                LocalDate.parse(facturaDTO.getFecha(), DATE_TIME_FORMATTER), cliente, vendedor,detalleFacturas);
         return factura;
     }
 
     private FacturaDTO mapToDTO(Factura factura) {
+        List<DetalleFacturaDTO> detalleFacturaDTOS = factura.getDetallesFactura()
+                .stream().map(detalleFactura -> detalleFacturaMapper.mapToDTO(detalleFactura))
+                .collect(Collectors.toList());
         FacturaDTO facturaDTO = new FacturaDTO(factura.getId(), factura.getNumeroFactura(),
-                factura.getTotalFactura(), factura.getFecha().toString(), factura.getCliente().getId(), factura.getVendedor().getId());
+                factura.getTotalFactura(), factura.getFecha().toString(), factura.getCliente().getId(), factura.getVendedor().getId(),detalleFacturaDTOS);
         return facturaDTO;
     }
 

@@ -12,16 +12,16 @@ import java.util.List;
 public class Factura {
 
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column (name= "numero_factura",nullable = false)
+    @Column(name = "numero_factura", nullable = false)
     private Integer numeroFactura;
 
-    @Column (name= "total_factura",nullable = false)
+    @Column(name = "total_factura", nullable = false)
     private Double totalFactura;
 
-    @Column (nullable = false)
+    @Column(nullable = false)
     private LocalDate fecha;
 
     @OneToMany(mappedBy = "factura")
@@ -38,7 +38,7 @@ public class Factura {
     public Factura() {
     }
 
-    public Factura(Integer id, Integer numeroFactura, Double totalFactura, LocalDate fecha, List<DetalleFactura> detallesFactura, Cliente cliente, Vendedor vendedor) {
+   public Factura(Integer id, Integer numeroFactura, Double totalFactura, LocalDate fecha, List<DetalleFactura> detallesFactura, Cliente cliente, Vendedor vendedor) {
         this.id = id;
         this.numeroFactura = numeroFactura;
         this.totalFactura = totalFactura;
@@ -48,7 +48,7 @@ public class Factura {
         this.vendedor = vendedor;
     }
 
-    public Factura(Integer id, Integer numeroFactura, Double totalFactura, LocalDate fecha, Cliente cliente, Vendedor vendedor) {
+    public Factura(Integer numeroFactura, Double totalFactura, LocalDate fecha, Cliente cliente, Vendedor vendedor) {
         this.id = id;
         this.numeroFactura = numeroFactura;
         this.totalFactura = totalFactura;
@@ -57,11 +57,22 @@ public class Factura {
         this.vendedor = vendedor;
     }
 
+
     public Factura(Integer id, Integer numeroFactura, Double totalFactura, LocalDate fecha) {
         this.id = id;
         this.numeroFactura = numeroFactura;
         this.totalFactura = totalFactura;
         this.fecha = fecha;
+    }
+
+
+    public Factura(Integer numeroFactura, Double totalFactura, LocalDate fecha, Cliente cliente, Vendedor vendedor, List<DetalleFactura> detallesFactura) {
+        this.numeroFactura = numeroFactura;
+        this.totalFactura = totalFactura;
+        this.fecha = fecha;
+        this.cliente = cliente;
+        this.vendedor = vendedor;
+        this.detallesFactura= detallesFactura;
     }
 
 
@@ -89,4 +100,10 @@ public class Factura {
     public Vendedor getVendedor() {
         return vendedor;
     }
-}
+
+    public List<DetalleFactura> getDetallesFactura() {
+        return detallesFactura;
+    }
+
+    }
+
