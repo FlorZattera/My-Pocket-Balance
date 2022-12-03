@@ -55,7 +55,7 @@ public class FacturaService {
         Optional<Cliente> cliente = clienteRepository.findById(facturaDTO.getIdCliente());
         Optional<Vendedor> vendedor = vendedorRepository.findById(facturaDTO.getIdVendedor());
         if (cliente.isEmpty()) {
-            throw new ResourceNotFoundException("el cliente no esta resgistrado");
+            throw new ResourceNotFoundException("el cliente no esta registrado");
         }
         if (vendedor.isEmpty()) {
             throw new ResourceNotFoundException("la compra no puede realizarse");
